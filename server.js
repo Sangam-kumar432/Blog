@@ -22,38 +22,13 @@ app.use(session({
 
 app.use('/route', router);
 
-// home page
+// blog list page
 
-
-let readblogs = async ()=> {
+app.get('/',async  (req, resp) => {
     let data = await blogdb();
     data = await data.find().toArray();
-    return data;
-}
+    resp.send(data);
 
-
-
-// let blogs = readblogs() .then((data)=>{
-//     // console.log(data);
-//     return data;
-// });
-
-// console.log(blogs);
-
-
-
-
-
-app.get('/', (req, resp) => {
-    readblogs() .then((data)=>{
-        resp.send(data);
-    });
-    // render('Home' , {blogs});
-    // resp.end();
 });
-
-// let data = await blogs();
-//     let result = await data.find().toArray();
-//     return result;
 
 app.listen(port, () => { console.log('server is listening on port http://localhost:3000') });

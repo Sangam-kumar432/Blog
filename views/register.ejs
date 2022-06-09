@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Register User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+
+    <style>
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 20%;
+        margin: 8px 0;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 2px solid green;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        width: 20%;
+        color: orange;
+        padding: 15px;
+        margin: 10px 0px;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <center><h2>register yourself </h2></center>
+    <form action="/route/register" method="post">
+      <label for="profile"> Choose your profile: </label>
+
+      <select name="profile" id="profile">
+        <option value="user">user</option>
+        <option value="admin">admin</option>
+      </select>
+      <br>
+      <br>
+
+      <!-- <label>first_name : </label>
+      <input type="text" name="first_name" placeholder="First Name" /><br />
+
+      <label>Last_name : </label>
+      <input type="text" name="last_name" placeholder="Last Name" /><br /> -->
+
+      <label>Username : </label>
+      <input type="text" name="username" placeholder="Username" /><br />
+
+      <label>email : </label>
+      <input type="email" name="email" placeholder="email" /><br />
+
+      <label>Password : </label>
+      <input type="password" name="password1" placeholder="Password" /><br />
+
+      <label>Confirm Password : </label>
+      <input
+        type="password"
+        name="password2"
+        placeholder="Confirm Password"
+      /><br />
+      <button type="submit">Register</button>
+
+
+      <br>
+      <br>
+      <p> <h5> Already registered ? Login <a href="/route/login">here</a></h5></p>
+    </form>
+
+    <!-- <div>
+        {% for message in messages %}
+        <h3> {{message}}  </h3>
+        {% endfor %}
+    </div> -->
+  </body>
+</html>

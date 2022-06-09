@@ -6,14 +6,20 @@
   </head>
 
   <body>
-    <h2> Hello !! </h2>
-    <p><strong> This website was made by sangam </strong></p>
-    <br />
-    <p>Play quiz
-    <a href="/route/play"> here </a>
-    </p>
-    <br />
-    <br />
-    <a href="/route/logout"> logout </a>
+    <center>
+      <h2>Hello !!</h2>
+    </center>
+    <p><strong> This website is created by sangam </strong></p>
+
+
+    <%= data.length%>
+    <br>
+    <% for (var i = 0; i < data.length; i++) { %>
+    <tr>
+      <td><%= data[i].username %></td>
+      <td><%= data[i].email %></td>
+    </tr>
+    <br>
+    <% } %>
   </body>
 </html>

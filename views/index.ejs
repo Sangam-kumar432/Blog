@@ -8,18 +8,25 @@
   <body>
     <center>
       <h2>Hello !!</h2>
+
+      <p><strong> This website is created by sangam </strong></p>
+      <h3><%= msg %></h3>
     </center>
-    <p><strong> This website is created by sangam </strong></p>
+    <p>Total user registered : <%= data.length %> </p>
 
-
-    <%= data.length%>
-    <br>
-    <% for (var i = 0; i < data.length; i++) { %>
-    <tr>
-      <td><%= data[i].username %></td>
-      <td><%= data[i].email %></td>
-    </tr>
-    <br>
-    <% } %>
+    <br />
+    <table>
+      <tr>
+        <td><h3>username</h3></td>
+        <td><h3>email</h3></td>
+      </tr>
+      <% for (var i = 0; i < data.length; i++) { %>
+      <tr>
+        <td><%= data[i].username %></td>
+        <td><%= data[i].email %></td>
+      </tr>
+      <br />
+      <% } %>
+    </table>
   </body>
 </html>

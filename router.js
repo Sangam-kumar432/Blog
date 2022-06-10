@@ -20,7 +20,7 @@ router.get('/users', async (req, resp) => {
             resp.send("No user found ");
         } else
         {
-            resp.render('index', { data:user});
+            resp.render('index', { data:user , msg:"you can see the user list below"});
         };
 
     }
@@ -30,8 +30,23 @@ router.get('/users', async (req, resp) => {
 
 //home page
 
-router.get('/home', (req, resp) => {
-    resp.render('Home', { msg: 'you can contribute us a blog' });
+router.get('/home', (req, resp) =>
+{
+    const getblogs = async () => {
+        let db = await blogdb();
+        let blog = await db.find(
+            {}
+        ).toArray();
+        // console.log(user);
+        if (!blog) {
+            resp.send("No blog found ");
+        } else
+        {
+            resp.render('Home', { data:blog , msg:"see the blog list below"});
+        };
+
+    }
+    getblogs();
 });
 
 router.post('/home', (req, resp) => {
@@ -47,8 +62,21 @@ router.post('/home', (req, resp) => {
     }
 
     insert();
-    resp.render('Home', { msg: "blog added successfully!!" });
+    const getblogs = async () => {
+        let db = await blogdb();
+        let blog = await db.find(
+            {}
+        ).toArray();
+        // console.log(user);
+        if (!blog) {
+            resp.send("No blog found ");
+        } else
+        {
+            resp.render('Home', { data:blog , msg:"Blog added successfully"});
+        };
 
+    }
+    getblogs();
 
 });
 

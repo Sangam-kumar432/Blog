@@ -9,6 +9,23 @@
     <p align="right"><a href="/">show blogs</a></p>
     <center><h3><%= msg %></h3></center>
 
+    <p>Total blog : <%= data.length %> </p>
+
+    <br />
+    <table>
+      <tr>
+        <td><h3>title</h3></td>
+        <td><h3>description</h3></td>
+      </tr>
+      <% for (var i = 0; i < data.length; i++) { %>
+      <tr>
+        <td><%= data[i].title %></td>
+        <td> : </td>
+        <td><%= data[i].desc %></td>
+      </tr>
+      <br />
+      <% } %>
+    </table>
     <br />
     <form method="post" action="">
       <input type="text" name="title" placeholder="title" />

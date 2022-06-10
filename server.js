@@ -25,10 +25,7 @@ app.use('/route', router);
 // blog list page
 
 app.get('/',async  (req, resp) => {
-    let data = await blogdb();
-    data = await data.find().toArray();
-    resp.send(data);
-
+   resp.redirect('/route/home');
 });
 
 app.listen(port, () => { console.log('server is listening on port http://localhost:3000') });

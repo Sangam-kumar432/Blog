@@ -2,16 +2,14 @@ var express = require('express');
 const res = require('express/lib/response');
 const { redirect } = require('express/lib/response');
 var router = express.Router();
-const blogdb = require('./blogdb');
-const userdb = require('./userdb');
-
-
+const ecommdb = require('./ecommdb');
 
 // show users
 
 router.get('/users', async (req, resp) => {
     const finduser = async () => {
-        let db = await userdb();
+        let db = await ecommdb();
+        db = db.collection('user');
         let user = await db.find(
             {}
         ).toArray();
@@ -33,7 +31,8 @@ router.get('/users', async (req, resp) => {
 router.get('/home', (req, resp) =>
 {
     const getblogs = async () => {
-        let db = await blogdb();
+        let db = await ecommdb();
+        db = db.collection('blogs');
         let blog = await db.find(
             {}
         ).toArray();
@@ -52,18 +51,20 @@ router.get('/home', (req, resp) =>
 router.post('/home', (req, resp) => {
 
     const insert = async () => {
-        const db = await blogdb();
+        let db = await ecommdb();
+        db = db.collection('blogs');
         const result = await db.insertOne(
             { title: req.body.title, desc: req.body.desc }
         );
         if (result.acknowledged) {
-            console.warn("data inserted");
+            console.warn("blog posted for approval");
         }
     }
 
     insert();
     const getblogs = async () => {
-        let db = await blogdb();
+        let db = await ecommdb();
+        db = db.collection('blogs');
         let blog = await db.find(
             {}
         ).toArray();
@@ -90,7 +91,8 @@ router.get('/register', (req, resp) => {
 
 router.post('/register', (req, resp) => {
     const insert = async () => {
-        const db = await userdb();
+        let db = await ecommdb();
+        db = db.collection('user');
         const result = await db.insertOne(
             {
                 profile: req.body.profile,
@@ -116,11 +118,12 @@ router.get('/login', (req, resp) => {
 router.post('/login', async (req, resp) => {
 
     const finduser = async () => {
-        let db = await userdb();
+        let db = await ecommdb();
+        db = db.collection('user');
         let user = await db.findOne(
             { username: req.body.username , password:req.body.password }
         );
-        console.log(user);
+        // console.log(user);
         let result = user;
         if (!user) {
             resp.send("Invalid Username or password");

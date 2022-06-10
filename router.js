@@ -1,4 +1,5 @@
 var express = require('express');
+const { route } = require('express/lib/application');
 const res = require('express/lib/response');
 const { redirect } = require('express/lib/response');
 var router = express.Router();
@@ -32,7 +33,7 @@ router.get('/home', (req, resp) =>
 {
     const getblogs = async () => {
         let db = await ecommdb();
-        db = db.collection('blogs');
+        db = db.collection('Verified');
         let blog = await db.find(
             {}
         ).toArray();
@@ -52,7 +53,7 @@ router.post('/home', (req, resp) => {
 
     const insert = async () => {
         let db = await ecommdb();
-        db = db.collection('blogs');
+        db = db.collection('unverified');
         const result = await db.insertOne(
             { title: req.body.title, desc: req.body.desc }
         );
@@ -64,7 +65,7 @@ router.post('/home', (req, resp) => {
     insert();
     const getblogs = async () => {
         let db = await ecommdb();
-        db = db.collection('blogs');
+        db = db.collection('Verified');
         let blog = await db.find(
             {}
         ).toArray();
@@ -73,7 +74,7 @@ router.post('/home', (req, resp) => {
             resp.send("No blog found ");
         } else
         {
-            resp.render('Home', { data:blog , msg:"Blog added successfully"});
+            resp.render('Home', { data:blog , msg:"Blog posted for approval"});
         };
 
     }
@@ -81,6 +82,88 @@ router.post('/home', (req, resp) => {
 
 });
 
+
+// Pending blogs
+
+router.get('/approve-pending-blogs', (req, resp) =>
+{
+
+    const getblogs = async () => {
+        let db = await ecommdb();
+        db = db.collection('unverified');
+        let blog = await db.find(
+            {}
+        ).toArray();
+        // console.log(user);
+        if (!blog) {
+            resp.send("No blog found ");
+        } else
+        {
+            resp.render('blog/unverified', { data:blog , msg:"You haven't approved any blog yet"});
+        };
+
+    }
+    getblogs();
+});
+
+
+
+router.post('/approve-pending-blogs', (req, resp) =>
+{
+    const findblog = async () => {
+        let db = await ecommdb();
+        db = db.collection('unverified');
+        let blog = await db.findOne(
+            {
+                title:req.body.name
+            }
+        );
+        console.log(blog);
+        if (!blog) {
+            resp.send("No blog found ");
+        } else
+        {
+            resp.send("blog detected for approval");
+            // resp.render('Home', { data:blog , msg:"see the blog list below"});
+        };
+
+    }
+    findblog();
+
+
+
+    // const insert = async () => {
+    //     let db = await ecommdb();
+    //     db = db.collection('Verified');
+    //     const result = await db.insertOne(
+    //         { title: req.body.title, desc: req.body.desc }
+    //     );
+    //     if (result.acknowledged) {
+    //         console.warn("blog posted for approval");
+    //     }
+    // }
+
+    // insert();
+
+
+
+    // const getblogs = async () => {
+    //     let db = await ecommdb();
+    //     db = db.collection('unverified');
+    //     let blog = await db.find(
+    //         {}
+    //     ).toArray();
+    //     // console.log(user);
+    //     if (!blog) {
+    //         resp.send("No blog found ");
+    //     } else
+    //     {
+    //         resp.render('blog/unverified', { data:blog , msg:"You haven't approved any blog yet"});
+    //     };
+
+    // }
+    // getblogs();
+});
 
 
 // Register page
